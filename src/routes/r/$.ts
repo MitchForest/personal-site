@@ -35,30 +35,24 @@ interface Registry {
   items: RegistryItem[]
 }
 
-// Cache the registry.json in memory (refreshed on cold start)
-let registryCache: Record<string, Registry> = {}
-
 async function fetchRegistry(repo: string): Promise<Registry | null> {
-  if (registryCache[repo]) {
-    return registryCache[repo]
-  }
-
   const url = `https://raw.githubusercontent.com/${repo}/main/registry.json`
   const response = await fetch(url, {
     headers: { "User-Agent": "mitchforest.com-registry-proxy" },
+    // Bypass GitHub's CDN cache to get fresh content
+    cache: "no-store",
   })
 
   if (!response.ok) return null
 
-  const registry = await response.json() as Registry
-  registryCache[repo] = registry
-  return registry
+  return response.json() as Promise<Registry>
 }
 
 async function fetchFileContent(repo: string, filePath: string): Promise<string | null> {
   const url = `https://raw.githubusercontent.com/${repo}/main/${filePath}`
   const response = await fetch(url, {
     headers: { "User-Agent": "mitchforest.com-registry-proxy" },
+    cache: "no-store",
   })
 
   if (!response.ok) return null
