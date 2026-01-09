@@ -30,19 +30,19 @@ src/
 This site serves as a registry hub for all my open source projects. The proxy endpoint fetches from GitHub with edge caching:
 
 ```
-GET /api/r/{project}/{path}
+GET /r/{project}/{path}
 ```
 
 **Example:**
 ```
-https://mitchforest.com/api/r/scribble-ui/registry.json
+https://mitchforest.com/r/scribble-ui/registry.json
         ↓ (cached proxy)
 https://raw.githubusercontent.com/MitchForest/scribble-ui/main/registry.json
 ```
 
 ### Adding a New Project
 
-Edit `src/routes/api/r/$.ts`:
+Edit `server/routes/r/[...path].ts`:
 
 ```typescript
 const REPOS: Record<string, string> = {
