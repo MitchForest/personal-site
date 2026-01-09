@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as RSplatRouteImport } from './routes/r/$'
 import { Route as ProjectsScribbleUiRouteImport } from './routes/projects/scribble-ui'
 import { Route as ProjectsScribbleRouteImport } from './routes/projects/scribble'
 import { Route as ProjectsContextLayerRouteImport } from './routes/projects/context-layer'
@@ -30,6 +31,11 @@ const IndexRoute = IndexRouteImport.update({
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RSplatRoute = RSplatRouteImport.update({
+  id: '/r/$',
+  path: '/r/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsScribbleUiRoute = ProjectsScribbleUiRouteImport.update({
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/projects/context-layer': typeof ProjectsContextLayerRoute
   '/projects/scribble': typeof ProjectsScribbleRoute
   '/projects/scribble-ui': typeof ProjectsScribbleUiRoute
+  '/r/$': typeof RSplatRoute
   '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
@@ -69,6 +76,7 @@ export interface FileRoutesByTo {
   '/projects/context-layer': typeof ProjectsContextLayerRoute
   '/projects/scribble': typeof ProjectsScribbleRoute
   '/projects/scribble-ui': typeof ProjectsScribbleUiRoute
+  '/r/$': typeof RSplatRoute
   '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
@@ -79,6 +87,7 @@ export interface FileRoutesById {
   '/projects/context-layer': typeof ProjectsContextLayerRoute
   '/projects/scribble': typeof ProjectsScribbleRoute
   '/projects/scribble-ui': typeof ProjectsScribbleUiRoute
+  '/r/$': typeof RSplatRoute
   '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
@@ -90,6 +99,7 @@ export interface FileRouteTypes {
     | '/projects/context-layer'
     | '/projects/scribble'
     | '/projects/scribble-ui'
+    | '/r/$'
     | '/blog'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -99,6 +109,7 @@ export interface FileRouteTypes {
     | '/projects/context-layer'
     | '/projects/scribble'
     | '/projects/scribble-ui'
+    | '/r/$'
     | '/blog'
   id:
     | '__root__'
@@ -108,6 +119,7 @@ export interface FileRouteTypes {
     | '/projects/context-layer'
     | '/projects/scribble'
     | '/projects/scribble-ui'
+    | '/r/$'
     | '/blog/'
   fileRoutesById: FileRoutesById
 }
@@ -118,6 +130,7 @@ export interface RootRouteChildren {
   ProjectsContextLayerRoute: typeof ProjectsContextLayerRoute
   ProjectsScribbleRoute: typeof ProjectsScribbleRoute
   ProjectsScribbleUiRoute: typeof ProjectsScribbleUiRoute
+  RSplatRoute: typeof RSplatRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
 
@@ -142,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/blog'
       fullPath: '/blog'
       preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/r/$': {
+      id: '/r/$'
+      path: '/r/$'
+      fullPath: '/r/$'
+      preLoaderRoute: typeof RSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects/scribble-ui': {
@@ -182,6 +202,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProjectsContextLayerRoute: ProjectsContextLayerRoute,
   ProjectsScribbleRoute: ProjectsScribbleRoute,
   ProjectsScribbleUiRoute: ProjectsScribbleUiRoute,
+  RSplatRoute: RSplatRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport

@@ -42,7 +42,7 @@ https://raw.githubusercontent.com/MitchForest/scribble-ui/main/registry.json
 
 ### Adding a New Project
 
-Edit `server/routes/r/[...path].ts`:
+Edit `src/routes/r/$.ts`:
 
 ```typescript
 const REPOS: Record<string, string> = {
