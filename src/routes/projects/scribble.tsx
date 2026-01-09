@@ -58,13 +58,10 @@ function ScribblePage() {
         command="tree -L 1"
         output={
           <CodeBlock
-            code={`.
-├── apps/
-│   ├── ios/        # iPad app (Swift)
-│   ├── web/        # Dashboard (React)
-│   └── api/        # Backend (Hono)
-├── AppAssets/      # Curriculum, fonts
-└── tools/          # Validation scripts`}
+            code={`apps/
+├── ios/    # iPad app (Swift)
+├── web/    # Dashboard (React)
+└── api/    # Backend (Hono)`}
             lang="bash"
             showLineNumbers={false}
           />
