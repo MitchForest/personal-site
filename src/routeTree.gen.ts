@@ -16,6 +16,7 @@ import { Route as ProjectsScribbleUiRouteImport } from './routes/projects/scribb
 import { Route as ProjectsScribbleRouteImport } from './routes/projects/scribble'
 import { Route as ProjectsContextLayerRouteImport } from './routes/projects/context-layer'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as ApiRSplatRouteImport } from './routes/api/r/$'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -52,6 +53,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiRSplatRoute = ApiRSplatRouteImport.update({
+  id: '/api/r/$',
+  path: '/api/r/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/projects/scribble': typeof ProjectsScribbleRoute
   '/projects/scribble-ui': typeof ProjectsScribbleUiRoute
   '/blog': typeof BlogIndexRoute
+  '/api/r/$': typeof ApiRSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/projects/scribble': typeof ProjectsScribbleRoute
   '/projects/scribble-ui': typeof ProjectsScribbleUiRoute
   '/blog': typeof BlogIndexRoute
+  '/api/r/$': typeof ApiRSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/projects/scribble': typeof ProjectsScribbleRoute
   '/projects/scribble-ui': typeof ProjectsScribbleUiRoute
   '/blog/': typeof BlogIndexRoute
+  '/api/r/$': typeof ApiRSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/projects/scribble'
     | '/projects/scribble-ui'
     | '/blog'
+    | '/api/r/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/projects/scribble'
     | '/projects/scribble-ui'
     | '/blog'
+    | '/api/r/$'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/projects/scribble'
     | '/projects/scribble-ui'
     | '/blog/'
+    | '/api/r/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +131,7 @@ export interface RootRouteChildren {
   ProjectsScribbleRoute: typeof ProjectsScribbleRoute
   ProjectsScribbleUiRoute: typeof ProjectsScribbleUiRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  ApiRSplatRoute: typeof ApiRSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/r/$': {
+      id: '/api/r/$'
+      path: '/api/r/$'
+      fullPath: '/api/r/$'
+      preLoaderRoute: typeof ApiRSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -183,6 +203,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProjectsScribbleRoute: ProjectsScribbleRoute,
   ProjectsScribbleUiRoute: ProjectsScribbleUiRoute,
   BlogIndexRoute: BlogIndexRoute,
+  ApiRSplatRoute: ApiRSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
