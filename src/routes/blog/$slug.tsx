@@ -6,26 +6,35 @@ export const Route = createFileRoute("/blog/$slug")({
 })
 
 // Placeholder posts data - in production this comes from Velite
-const postsContent: Record<string, { title: string; date: string; content: string }> = {
-  "hello-world": {
-    title: "Hello World",
+const postsContent: Record<string, { title: string; date: string; content: React.ReactNode }> = {
+  "coming-soon": {
+    title: "Coming Soon",
     date: "2025-01-09",
-    content: `
-# Hello World
+    content: (
+      <div className="space-y-4">
+        <p className="text-fg-dim">I'm setting up this blog to share thoughts on:</p>
+        
+        <ul className="space-y-2 text-fg-dim ml-4">
+          <li>→ <span className="text-accent">Building with AI</span> — Cursor, Claude Code, Codex, and the new wave of AI-native development</li>
+          <li>→ <span className="text-accent">EdTech</span> — What I'm learning building apps for kids at Alpha School</li>
+          <li>→ <span className="text-accent">Open Source</span> — Updates on scribble-ui, context-layer, and other projects</li>
+          <li>→ <span className="text-accent">Engineering</span> — TanStack, Swift, React, and the tools I use daily</li>
+        </ul>
 
-This is the first post on my new terminal-style website. Built with:
+        <p className="text-fg-dim">
+          Check back soon, or follow me on{" "}
+          <a href="https://twitter.com/mitchforest" className="text-accent hover:underline" target="_blank" rel="noopener noreferrer">
+            Twitter
+          </a>{" "}
+          for updates.
+        </p>
 
-- **TanStack Start** for React + routing
-- **Shiki** for syntax highlighting
-- **Velite** for MDX content
-- **Tailwind CSS** for styling
-
-## Why Terminal Style?
-
-I spend most of my day in neovim and the terminal. This aesthetic feels like home.
-
-More posts coming soon.
-    `,
+        <pre className="p-3 bg-bg-alt border border-border text-fg-dim text-sm mt-6">
+{`// The traditional first post
+console.log("Hello, world!")`}
+        </pre>
+      </div>
+    ),
   },
 }
 
@@ -62,11 +71,8 @@ function BlogPostPage() {
         })}
       </Comment>
 
-      {/* In production, this would render the MDX content */}
-      <div className="mt-8 prose-terminal">
-        <div className="text-fg-dim whitespace-pre-wrap leading-relaxed">
-          {post.content}
-        </div>
+      <div className="mt-8">
+        {post.content}
       </div>
     </div>
   )

@@ -6,15 +6,15 @@ export const Route = createFileRoute("/blog/")({
 })
 
 // For now, hardcoded posts until Velite builds
-// In production, this would be: import { posts } from "~/.velite"
+// In production, this would be: import { posts } from ".velite"
 const posts = [
   {
-    slug: "hello-world",
-    title: "Hello World",
-    description: "First post on the new site. Building a terminal-style portfolio with TanStack Start.",
+    slug: "coming-soon",
+    title: "Coming Soon",
+    description: "Blog posts are on the way. Check back soon for thoughts on building software, AI tooling, and more.",
     date: "2025-01-09",
-    tags: ["meta", "web"],
-    permalink: "/blog/hello-world",
+    tags: ["meta"],
+    permalink: "/blog/coming-soon",
   },
 ]
 
@@ -58,12 +58,6 @@ function BlogIndexPage() {
           </Link>
         ))}
       </div>
-
-      {posts.length === 0 && (
-        <Text variant="muted" className="block mt-8">
-          No posts yet. Check back soon.
-        </Text>
-      )}
     </div>
   )
 }

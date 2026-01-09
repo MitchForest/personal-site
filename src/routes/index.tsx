@@ -16,7 +16,7 @@ function HomePage() {
       {/* Social links */}
       <div className="flex gap-4 mt-4 mb-8">
         <a 
-          href="https://github.com/mitchwhite" 
+          href="https://github.com/MitchForest" 
           target="_blank" 
           rel="noopener noreferrer"
           className="text-fg-dim hover:text-accent transition-colors"
@@ -30,6 +30,14 @@ function HomePage() {
           className="text-fg-dim hover:text-accent transition-colors"
         >
           [twitter]
+        </a>
+        <a 
+          href="https://www.instagram.com/mitchforest_/" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-fg-dim hover:text-accent transition-colors"
+        >
+          [instagram]
         </a>
       </div>
 
@@ -66,6 +74,7 @@ function HomePage() {
                 tech={["React", "rough.js", "Tailwind"]}
                 status="open-source"
                 href="/projects/scribble-ui"
+                githubUrl="https://github.com/MitchForest/scribble-ui"
               />
               <ProjectCard 
                 name="context-layer" 
@@ -73,6 +82,7 @@ function HomePage() {
                 tech={["TypeScript", "LLM"]}
                 status="open-source"
                 href="/projects/context-layer"
+                githubUrl="https://github.com/MitchForest/context-layer"
               />
             </div>
           }
@@ -82,16 +92,16 @@ function HomePage() {
           path="~" 
           command="cat stack.json"
           output={
-<CodeBlock
-            code={`{
+            <CodeBlock
+              code={`{
   "languages": ["TypeScript", "Swift", "Python"],
   "frontend": ["React", "SolidJS", "SwiftUI", "TailwindCSS"],
   "backend": ["Convex", "Hono", "Bun", "Drizzle", "Postgres"],
   "ai": ["Cursor (top 9% in 2025)", "Codex", "Claude Code"]
 }`}
-            lang="json"
-            showLineNumbers={false}
-          />
+              lang="json"
+              showLineNumbers={false}
+            />
           }
         />
 
@@ -110,12 +120,14 @@ function ProjectCard({
   tech,
   status,
   href,
+  githubUrl,
 }: { 
   name: string
   description: string
   tech: string[]
   status?: "stealth" | "open-source" | "wip"
   href?: string
+  githubUrl?: string
 }) {
   const Content = (
     <div className="p-3 border border-border hover:border-border-bright transition-colors h-full">
@@ -137,7 +149,7 @@ function ProjectCard({
       <Text variant="muted" className="block text-sm mb-2">
         {description}
       </Text>
-      <div className="flex flex-wrap gap-1">
+      <div className="flex flex-wrap gap-1 mb-2">
         {tech.map((t) => (
           <span 
             key={t} 
@@ -147,6 +159,18 @@ function ProjectCard({
           </span>
         ))}
       </div>
+      {githubUrl && (
+        <a
+          href={githubUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="inline-flex items-center gap-1.5 text-xs text-fg-muted hover:text-accent transition-colors mt-1"
+        >
+          <span>★</span>
+          <span>Star on GitHub</span>
+        </a>
+      )}
     </div>
   )
 
