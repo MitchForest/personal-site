@@ -124,12 +124,22 @@ export const Route = createFileRoute("/r/$")({
             )
           }
 
-          // Fetch content for each file
+          // Fetch content for each file and add target paths
           const filesWithContent = await Promise.all(
             item.files.map(async (file) => {
               const content = await fetchFileContent(repo, file.path)
+              
+              // Generate target path: all scribble-ui files go to components/scribble-ui/
+              // registry/button.tsx → components/scribble-ui/button.tsx
+              // registry/lib/utils.ts → components/scribble-ui/lib/utils.ts
+              // registry/annotation/underline.tsx → components/scribble-ui/annotation/underline.tsx
+              const relativePath = file.path.replace(/^registry\//, "")
+              const target = `components/scribble-ui/${relativePath}`
+              
               return {
-                ...file,
+                path: file.path,
+                type: "registry:file", // Use registry:file with explicit target
+                target,
                 content: content || "",
               }
             })
