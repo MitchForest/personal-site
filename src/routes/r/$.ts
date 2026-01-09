@@ -10,13 +10,76 @@ const REPOS: Record<string, string> = {
 const CACHE_TTL = 3600 // 1 hour
 const STALE_TTL = 86400 // 24 hours (serve stale while revalidating)
 
+interface RegistryFile {
+  path: string
+  type: string
+  target?: string
+}
+
+interface RegistryItem {
+  name: string
+  type: string
+  title?: string
+  description?: string
+  dependencies?: string[]
+  devDependencies?: string[]
+  registryDependencies?: string[]
+  files: RegistryFile[]
+  cssVars?: Record<string, unknown>
+}
+
+interface Registry {
+  $schema: string
+  name: string
+  homepage: string
+  items: RegistryItem[]
+}
+
+// Cache the registry.json in memory (refreshed on cold start)
+let registryCache: Record<string, Registry> = {}
+
+async function fetchRegistry(repo: string): Promise<Registry | null> {
+  if (registryCache[repo]) {
+    return registryCache[repo]
+  }
+
+  const url = `https://raw.githubusercontent.com/${repo}/main/registry.json`
+  const response = await fetch(url, {
+    headers: { "User-Agent": "mitchforest.com-registry-proxy" },
+  })
+
+  if (!response.ok) return null
+
+  const registry = await response.json() as Registry
+  registryCache[repo] = registry
+  return registry
+}
+
+async function fetchFileContent(repo: string, filePath: string): Promise<string | null> {
+  const url = `https://raw.githubusercontent.com/${repo}/main/${filePath}`
+  const response = await fetch(url, {
+    headers: { "User-Agent": "mitchforest.com-registry-proxy" },
+  })
+
+  if (!response.ok) return null
+  return response.text()
+}
+
+function getCacheHeaders() {
+  return {
+    "Cache-Control": `public, max-age=${CACHE_TTL}, stale-while-revalidate=${STALE_TTL}`,
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, OPTIONS",
+  }
+}
+
 export const Route = createFileRoute("/r/$")({
   server: {
     handlers: {
       GET: async ({ params }) => {
         const path = params._splat || ""
 
-        // Parse: {project}/{...rest}
+        // Parse: {project}/{componentName}.json or {project}/registry.json
         const [project, ...rest] = path.split("/")
         const filePath = rest.join("/")
 
@@ -27,21 +90,82 @@ export const Route = createFileRoute("/r/$")({
           )
         }
 
-        if (!filePath) {
-          return Response.json(
-            { error: "No file path provided" },
-            { status: 400 }
-          )
+        const repo = REPOS[project]
+
+        // Handle registry.json request - return the full registry
+        if (filePath === "registry.json") {
+          const registry = await fetchRegistry(repo)
+          if (!registry) {
+            return Response.json(
+              { error: "Registry not found" },
+              { status: 404 }
+            )
+          }
+          return Response.json(registry, { headers: getCacheHeaders() })
         }
 
-        const repo = REPOS[project]
+        // Handle {name}.json request - return a single component with embedded content
+        if (filePath.endsWith(".json")) {
+          const componentName = filePath.replace(".json", "")
+
+          const registry = await fetchRegistry(repo)
+          if (!registry) {
+            return Response.json(
+              { error: "Registry not found" },
+              { status: 404 }
+            )
+          }
+
+          const item = registry.items.find((i) => i.name === componentName)
+          if (!item) {
+            return Response.json(
+              { error: "Component not found", name: componentName },
+              { status: 404 }
+            )
+          }
+
+          // Fetch content for each file
+          const filesWithContent = await Promise.all(
+            item.files.map(async (file) => {
+              const content = await fetchFileContent(repo, file.path)
+              return {
+                ...file,
+                content: content || "",
+              }
+            })
+          )
+
+          // Transform registryDependencies to use @scribble-ui namespace
+          const registryDeps = item.registryDependencies?.map((dep) => {
+            // Convert "scribble-ui/button" to "@scribble-ui/button"
+            if (dep.startsWith("scribble-ui/")) {
+              return `@scribble-ui/${dep.replace("scribble-ui/", "")}`
+            }
+            return dep
+          })
+
+          const registryItem = {
+            $schema: "https://ui.shadcn.com/schema/registry-item.json",
+            name: item.name,
+            type: item.type,
+            title: item.title,
+            description: item.description,
+            dependencies: item.dependencies,
+            devDependencies: item.devDependencies,
+            registryDependencies: registryDeps,
+            files: filesWithContent,
+            cssVars: item.cssVars,
+          }
+
+          return Response.json(registryItem, { headers: getCacheHeaders() })
+        }
+
+        // Fallback: serve raw file (for backwards compatibility)
         const rawUrl = `https://raw.githubusercontent.com/${repo}/main/${filePath}`
 
         try {
           const response = await fetch(rawUrl, {
-            headers: {
-              "User-Agent": "mitchforest.com-registry-proxy",
-            },
+            headers: { "User-Agent": "mitchforest.com-registry-proxy" },
           })
 
           if (!response.ok) {
@@ -58,9 +182,7 @@ export const Route = createFileRoute("/r/$")({
             status: 200,
             headers: {
               "Content-Type": contentType,
-              "Cache-Control": `public, max-age=${CACHE_TTL}, stale-while-revalidate=${STALE_TTL}`,
-              "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "GET, OPTIONS",
+              ...getCacheHeaders(),
             },
           })
         } catch (error) {
