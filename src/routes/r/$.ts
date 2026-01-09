@@ -6,10 +6,6 @@ const REPOS: Record<string, string> = {
   // "context-layer": "MitchForest/context-layer",
 }
 
-// Cache duration in seconds
-const CACHE_TTL = 3600 // 1 hour
-const STALE_TTL = 86400 // 24 hours (serve stale while revalidating)
-
 interface RegistryFile {
   path: string
   type: string
@@ -59,9 +55,10 @@ async function fetchFileContent(repo: string, filePath: string): Promise<string 
   return response.text()
 }
 
-function getCacheHeaders() {
+function getHeaders() {
   return {
-    "Cache-Control": `public, max-age=${CACHE_TTL}, stale-while-revalidate=${STALE_TTL}`,
+    // No caching - always serve fresh from GitHub
+    "Cache-Control": "no-store, no-cache, must-revalidate",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "GET, OPTIONS",
   }
@@ -95,7 +92,7 @@ export const Route = createFileRoute("/r/$")({
               { status: 404 }
             )
           }
-          return Response.json(registry, { headers: getCacheHeaders() })
+          return Response.json(registry, { headers: getHeaders() })
         }
 
         // Handle {name}.json request - return a single component with embedded content
@@ -139,14 +136,9 @@ export const Route = createFileRoute("/r/$")({
             })
           )
 
-          // Transform registryDependencies to use @scribble-ui namespace
-          const registryDeps = item.registryDependencies?.map((dep) => {
-            // Convert "scribble-ui/button" to "@scribble-ui/button"
-            if (dep.startsWith("scribble-ui/")) {
-              return `@scribble-ui/${dep.replace("scribble-ui/", "")}`
-            }
-            return dep
-          })
+          // registryDependencies use bare names (e.g., "lib", "button")
+          // The shadcn CLI will prepend @scribble-ui/ automatically when resolving
+          const registryDeps = item.registryDependencies
 
           const registryItem = {
             $schema: "https://ui.shadcn.com/schema/registry-item.json",
@@ -161,7 +153,7 @@ export const Route = createFileRoute("/r/$")({
             cssVars: item.cssVars,
           }
 
-          return Response.json(registryItem, { headers: getCacheHeaders() })
+          return Response.json(registryItem, { headers: getHeaders() })
         }
 
         // Fallback: serve raw file (for backwards compatibility)
@@ -186,7 +178,7 @@ export const Route = createFileRoute("/r/$")({
             status: 200,
             headers: {
               "Content-Type": contentType,
-              ...getCacheHeaders(),
+              ...getHeaders(),
             },
           })
         } catch (error) {
