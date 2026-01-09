@@ -13,12 +13,12 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as RSplatRouteImport } from './routes/r/$'
-import { Route as ProjectsScribbleUiRouteImport } from './routes/projects/scribble-ui'
 import { Route as ProjectsScribbleRouteImport } from './routes/projects/scribble'
 import { Route as ProjectsContextLayerRouteImport } from './routes/projects/context-layer'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
-import { Route as ProjectsScribbleUiGalleryIndexRouteImport } from './routes/projects/scribble-ui.gallery.index'
-import { Route as ProjectsScribbleUiGalleryIdRouteImport } from './routes/projects/scribble-ui.gallery.$id'
+import { Route as ProjectsScribbleUiIndexRouteImport } from './routes/projects/scribble-ui/index'
+import { Route as ProjectsScribbleUiGalleryIndexRouteImport } from './routes/projects/scribble-ui/gallery.index'
+import { Route as ProjectsScribbleUiGalleryIdRouteImport } from './routes/projects/scribble-ui/gallery.$id'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -40,11 +40,6 @@ const RSplatRoute = RSplatRouteImport.update({
   path: '/r/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProjectsScribbleUiRoute = ProjectsScribbleUiRouteImport.update({
-  id: '/projects/scribble-ui',
-  path: '/projects/scribble-ui',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProjectsScribbleRoute = ProjectsScribbleRouteImport.update({
   id: '/projects/scribble',
   path: '/projects/scribble',
@@ -60,17 +55,22 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsScribbleUiIndexRoute = ProjectsScribbleUiIndexRouteImport.update({
+  id: '/projects/scribble-ui/',
+  path: '/projects/scribble-ui/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsScribbleUiGalleryIndexRoute =
   ProjectsScribbleUiGalleryIndexRouteImport.update({
-    id: '/gallery/',
-    path: '/gallery/',
-    getParentRoute: () => ProjectsScribbleUiRoute,
+    id: '/projects/scribble-ui/gallery/',
+    path: '/projects/scribble-ui/gallery/',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const ProjectsScribbleUiGalleryIdRoute =
   ProjectsScribbleUiGalleryIdRouteImport.update({
-    id: '/gallery/$id',
-    path: '/gallery/$id',
-    getParentRoute: () => ProjectsScribbleUiRoute,
+    id: '/projects/scribble-ui/gallery/$id',
+    path: '/projects/scribble-ui/gallery/$id',
+    getParentRoute: () => rootRouteImport,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -79,9 +79,9 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/context-layer': typeof ProjectsContextLayerRoute
   '/projects/scribble': typeof ProjectsScribbleRoute
-  '/projects/scribble-ui': typeof ProjectsScribbleUiRouteWithChildren
   '/r/$': typeof RSplatRoute
   '/blog': typeof BlogIndexRoute
+  '/projects/scribble-ui': typeof ProjectsScribbleUiIndexRoute
   '/projects/scribble-ui/gallery/$id': typeof ProjectsScribbleUiGalleryIdRoute
   '/projects/scribble-ui/gallery': typeof ProjectsScribbleUiGalleryIndexRoute
 }
@@ -91,9 +91,9 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/context-layer': typeof ProjectsContextLayerRoute
   '/projects/scribble': typeof ProjectsScribbleRoute
-  '/projects/scribble-ui': typeof ProjectsScribbleUiRouteWithChildren
   '/r/$': typeof RSplatRoute
   '/blog': typeof BlogIndexRoute
+  '/projects/scribble-ui': typeof ProjectsScribbleUiIndexRoute
   '/projects/scribble-ui/gallery/$id': typeof ProjectsScribbleUiGalleryIdRoute
   '/projects/scribble-ui/gallery': typeof ProjectsScribbleUiGalleryIndexRoute
 }
@@ -104,9 +104,9 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/context-layer': typeof ProjectsContextLayerRoute
   '/projects/scribble': typeof ProjectsScribbleRoute
-  '/projects/scribble-ui': typeof ProjectsScribbleUiRouteWithChildren
   '/r/$': typeof RSplatRoute
   '/blog/': typeof BlogIndexRoute
+  '/projects/scribble-ui/': typeof ProjectsScribbleUiIndexRoute
   '/projects/scribble-ui/gallery/$id': typeof ProjectsScribbleUiGalleryIdRoute
   '/projects/scribble-ui/gallery/': typeof ProjectsScribbleUiGalleryIndexRoute
 }
@@ -118,9 +118,9 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/projects/context-layer'
     | '/projects/scribble'
-    | '/projects/scribble-ui'
     | '/r/$'
     | '/blog'
+    | '/projects/scribble-ui'
     | '/projects/scribble-ui/gallery/$id'
     | '/projects/scribble-ui/gallery'
   fileRoutesByTo: FileRoutesByTo
@@ -130,9 +130,9 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/projects/context-layer'
     | '/projects/scribble'
-    | '/projects/scribble-ui'
     | '/r/$'
     | '/blog'
+    | '/projects/scribble-ui'
     | '/projects/scribble-ui/gallery/$id'
     | '/projects/scribble-ui/gallery'
   id:
@@ -142,9 +142,9 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/projects/context-layer'
     | '/projects/scribble'
-    | '/projects/scribble-ui'
     | '/r/$'
     | '/blog/'
+    | '/projects/scribble-ui/'
     | '/projects/scribble-ui/gallery/$id'
     | '/projects/scribble-ui/gallery/'
   fileRoutesById: FileRoutesById
@@ -155,9 +155,11 @@ export interface RootRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
   ProjectsContextLayerRoute: typeof ProjectsContextLayerRoute
   ProjectsScribbleRoute: typeof ProjectsScribbleRoute
-  ProjectsScribbleUiRoute: typeof ProjectsScribbleUiRouteWithChildren
   RSplatRoute: typeof RSplatRoute
   BlogIndexRoute: typeof BlogIndexRoute
+  ProjectsScribbleUiIndexRoute: typeof ProjectsScribbleUiIndexRoute
+  ProjectsScribbleUiGalleryIdRoute: typeof ProjectsScribbleUiGalleryIdRoute
+  ProjectsScribbleUiGalleryIndexRoute: typeof ProjectsScribbleUiGalleryIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -190,13 +192,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/projects/scribble-ui': {
-      id: '/projects/scribble-ui'
-      path: '/projects/scribble-ui'
-      fullPath: '/projects/scribble-ui'
-      preLoaderRoute: typeof ProjectsScribbleUiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/projects/scribble': {
       id: '/projects/scribble'
       path: '/projects/scribble'
@@ -218,35 +213,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/scribble-ui/': {
+      id: '/projects/scribble-ui/'
+      path: '/projects/scribble-ui'
+      fullPath: '/projects/scribble-ui'
+      preLoaderRoute: typeof ProjectsScribbleUiIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects/scribble-ui/gallery/': {
       id: '/projects/scribble-ui/gallery/'
-      path: '/gallery'
+      path: '/projects/scribble-ui/gallery'
       fullPath: '/projects/scribble-ui/gallery'
       preLoaderRoute: typeof ProjectsScribbleUiGalleryIndexRouteImport
-      parentRoute: typeof ProjectsScribbleUiRoute
+      parentRoute: typeof rootRouteImport
     }
     '/projects/scribble-ui/gallery/$id': {
       id: '/projects/scribble-ui/gallery/$id'
-      path: '/gallery/$id'
+      path: '/projects/scribble-ui/gallery/$id'
       fullPath: '/projects/scribble-ui/gallery/$id'
       preLoaderRoute: typeof ProjectsScribbleUiGalleryIdRouteImport
-      parentRoute: typeof ProjectsScribbleUiRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface ProjectsScribbleUiRouteChildren {
-  ProjectsScribbleUiGalleryIdRoute: typeof ProjectsScribbleUiGalleryIdRoute
-  ProjectsScribbleUiGalleryIndexRoute: typeof ProjectsScribbleUiGalleryIndexRoute
-}
-
-const ProjectsScribbleUiRouteChildren: ProjectsScribbleUiRouteChildren = {
-  ProjectsScribbleUiGalleryIdRoute: ProjectsScribbleUiGalleryIdRoute,
-  ProjectsScribbleUiGalleryIndexRoute: ProjectsScribbleUiGalleryIndexRoute,
-}
-
-const ProjectsScribbleUiRouteWithChildren =
-  ProjectsScribbleUiRoute._addFileChildren(ProjectsScribbleUiRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -254,9 +243,11 @@ const rootRouteChildren: RootRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
   ProjectsContextLayerRoute: ProjectsContextLayerRoute,
   ProjectsScribbleRoute: ProjectsScribbleRoute,
-  ProjectsScribbleUiRoute: ProjectsScribbleUiRouteWithChildren,
   RSplatRoute: RSplatRoute,
   BlogIndexRoute: BlogIndexRoute,
+  ProjectsScribbleUiIndexRoute: ProjectsScribbleUiIndexRoute,
+  ProjectsScribbleUiGalleryIdRoute: ProjectsScribbleUiGalleryIdRoute,
+  ProjectsScribbleUiGalleryIndexRoute: ProjectsScribbleUiGalleryIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

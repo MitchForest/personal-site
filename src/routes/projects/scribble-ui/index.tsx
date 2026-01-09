@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router"
 import { Paragraph, Text, Comment, Prompt, AsciiTitle, CodeBlock } from "~/components/terminal"
 
-export const Route = createFileRoute("/projects/scribble-ui")({
+export const Route = createFileRoute("/projects/scribble-ui/")({
   component: ScribbleUIPage,
 })
 

@@ -1,42 +1,6 @@
 "use client"
 
-import {
-  ScribbleButton,
-  ScribbleCard,
-  ScribbleCardHeader,
-  ScribbleCardTitle,
-  ScribbleCardContent,
-  ScribbleBadge,
-  ScribbleInput,
-  ScribbleCheckbox,
-  ScribbleLabel,
-  ScribbleTextarea,
-  ScribbleToggle,
-  ScribbleProgress,
-  ScribbleSkeleton,
-  ScribbleAvatar,
-  ScribbleRating,
-  ScribbleLink,
-} from "~/components/scribble-ui"
-
-import {
-  ScribbleUnderline,
-  ScribbleHighlight,
-  ScribbleBracket,
-  ScribbleCircle,
-  ScribbleBox,
-  ScribbleCrossedOff,
-} from "~/components/scribble-ui"
-
-import {
-  ScribbleArrow,
-  ScribbleDivider,
-  ScribbleDoodle,
-  ScribbleHeart,
-  ScribbleStar,
-  ScribbleTape,
-  ScribbleCircleBadge,
-} from "~/components/scribble-ui"
+import { useState, useEffect, type ReactNode } from "react"
 
 interface ComponentPreviewProps {
   componentId: string
@@ -46,12 +10,80 @@ interface ComponentPreviewProps {
 
 /**
  * Renders a live preview of a scribble-ui component
+ * Only renders on client to avoid SSR issues with rough.js
  */
 export function ComponentPreview({ componentId, props }: ComponentPreviewProps) {
+  const [component, setComponent] = useState<ReactNode>(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    // Dynamic import on client only
+    import("~/components/scribble-ui")
+      .then((ScribbleUI) => {
+        const rendered = renderComponent(componentId, props, ScribbleUI)
+        setComponent(rendered)
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        console.error("Failed to load scribble-ui:", err)
+        setComponent(<div className="text-red-500 text-xs">Error: {String(err)}</div>)
+        setIsLoading(false)
+      })
+  }, [componentId, props])
+
+  if (isLoading) {
+    return (
+      <div className="h-10 w-32 bg-bg-alt animate-pulse rounded flex items-center justify-center text-xs text-fg-muted">
+        Loading...
+      </div>
+    )
+  }
+
+  return <>{component}</>
+}
+
+// Render the appropriate component based on ID
+function renderComponent(
+  componentId: string,
+  props: Record<string, unknown>,
+  ScribbleUI: typeof import("~/components/scribble-ui")
+) {
+  const {
+    ScribbleButton,
+    ScribbleCard,
+    ScribbleCardHeader,
+    ScribbleCardTitle,
+    ScribbleCardContent,
+    ScribbleBadge,
+    ScribbleInput,
+    ScribbleCheckbox,
+    ScribbleLabel,
+    ScribbleTextarea,
+    ScribbleToggle,
+    ScribbleProgress,
+    ScribbleSkeleton,
+    ScribbleAvatar,
+    ScribbleRating,
+    ScribbleLink,
+    ScribbleUnderline,
+    ScribbleHighlight,
+    ScribbleBracket,
+    ScribbleCircle,
+    ScribbleBox,
+    ScribbleCrossedOff,
+    ScribbleArrow,
+    ScribbleDivider,
+    ScribbleDoodle,
+    ScribbleHeart,
+    ScribbleStar,
+    ScribbleTape,
+    ScribbleCircleBadge,
+  } = ScribbleUI
+
   // Core components
   if (componentId === "button") {
     return (
-      <ScribbleButton {...props}>
+      <ScribbleButton {...(props as any)}>
         {(props.variant as string) || "Primary"} Button
       </ScribbleButton>
     )
@@ -59,7 +91,7 @@ export function ComponentPreview({ componentId, props }: ComponentPreviewProps) 
 
   if (componentId === "card") {
     return (
-      <ScribbleCard className="w-48" {...props}>
+      <ScribbleCard className="w-48" {...(props as any)}>
         <ScribbleCardHeader>
           <ScribbleCardTitle>Card Title</ScribbleCardTitle>
         </ScribbleCardHeader>
@@ -71,21 +103,21 @@ export function ComponentPreview({ componentId, props }: ComponentPreviewProps) 
   }
 
   if (componentId === "badge") {
-    return <ScribbleBadge {...props}>Badge</ScribbleBadge>
+    return <ScribbleBadge {...(props as any)}>Badge</ScribbleBadge>
   }
 
   if (componentId === "input") {
-    return <ScribbleInput placeholder="Type here..." className="w-48" {...props} />
+    return <ScribbleInput placeholder="Type here..." className="w-48" {...(props as any)} />
   }
 
   if (componentId === "textarea") {
-    return <ScribbleTextarea placeholder="Write something..." className="w-48" rows={2} {...props} />
+    return <ScribbleTextarea placeholder="Write something..." className="w-48" rows={2} {...(props as any)} />
   }
 
   if (componentId === "checkbox") {
     return (
       <div className="flex items-center gap-2">
-        <ScribbleCheckbox id="demo" {...props} />
+        <ScribbleCheckbox id="demo" {...(props as any)} />
         <ScribbleLabel htmlFor="demo">Check me</ScribbleLabel>
       </div>
     )
@@ -96,11 +128,11 @@ export function ComponentPreview({ componentId, props }: ComponentPreviewProps) 
   }
 
   if (componentId === "toggle") {
-    return <ScribbleToggle {...props}>Toggle</ScribbleToggle>
+    return <ScribbleToggle {...(props as any)}>Toggle</ScribbleToggle>
   }
 
   if (componentId === "progress") {
-    return <ScribbleProgress value={props.value as number || 60} className="w-48" />
+    return <ScribbleProgress value={(props.value as number) || 60} className="w-48" />
   }
 
   if (componentId === "skeleton") {
@@ -112,7 +144,7 @@ export function ComponentPreview({ componentId, props }: ComponentPreviewProps) 
   }
 
   if (componentId === "rating") {
-    return <ScribbleRating value={props.value as number || 3} max={5} />
+    return <ScribbleRating value={(props.value as number) || 3} max={5} />
   }
 
   if (componentId === "link") {
@@ -170,7 +202,12 @@ export function ComponentPreview({ componentId, props }: ComponentPreviewProps) 
 
   // Decorative components
   if (componentId === "decorative-arrow") {
-    return <ScribbleArrow direction={props.direction as "up" | "down" | "left" | "right"} size={32} />
+    return (
+      <ScribbleArrow
+        direction={props.direction as "up" | "down" | "left" | "right"}
+        size={32}
+      />
+    )
   }
 
   if (componentId === "decorative-divider") {

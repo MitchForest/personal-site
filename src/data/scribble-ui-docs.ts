@@ -45,10 +45,9 @@ export const components: ComponentDoc[] = [
       { name: "ghost", props: { variant: "ghost" }, label: "Ghost" },
       { name: "outline", props: { variant: "outline" }, label: "Outline" },
       { name: "destructive", props: { variant: "destructive" }, label: "Destructive" },
-      { name: "link", props: { variant: "link" }, label: "Link" },
     ],
     props: [
-      { name: "variant", type: '"primary" | "secondary" | "ghost" | "outline" | "destructive" | "link"', default: '"primary"', description: "Visual style of the button" },
+      { name: "variant", type: '"primary" | "secondary" | "ghost" | "outline" | "destructive"', default: '"primary"', description: "Visual style of the button" },
       { name: "size", type: '"sm" | "md" | "lg"', default: '"md"', description: "Size of the button" },
       { name: "disabled", type: "boolean", default: "false", description: "Disables the button" },
       { name: "asChild", type: "boolean", default: "false", description: "Render as child element (for Links)" },
