@@ -17,6 +17,8 @@ import { Route as ProjectsScribbleUiRouteImport } from './routes/projects/scribb
 import { Route as ProjectsScribbleRouteImport } from './routes/projects/scribble'
 import { Route as ProjectsContextLayerRouteImport } from './routes/projects/context-layer'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as ProjectsScribbleUiGalleryIndexRouteImport } from './routes/projects/scribble-ui.gallery.index'
+import { Route as ProjectsScribbleUiGalleryIdRouteImport } from './routes/projects/scribble-ui.gallery.$id'
 
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
@@ -58,6 +60,18 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsScribbleUiGalleryIndexRoute =
+  ProjectsScribbleUiGalleryIndexRouteImport.update({
+    id: '/gallery/',
+    path: '/gallery/',
+    getParentRoute: () => ProjectsScribbleUiRoute,
+  } as any)
+const ProjectsScribbleUiGalleryIdRoute =
+  ProjectsScribbleUiGalleryIdRouteImport.update({
+    id: '/gallery/$id',
+    path: '/gallery/$id',
+    getParentRoute: () => ProjectsScribbleUiRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -65,9 +79,11 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/context-layer': typeof ProjectsContextLayerRoute
   '/projects/scribble': typeof ProjectsScribbleRoute
-  '/projects/scribble-ui': typeof ProjectsScribbleUiRoute
+  '/projects/scribble-ui': typeof ProjectsScribbleUiRouteWithChildren
   '/r/$': typeof RSplatRoute
   '/blog': typeof BlogIndexRoute
+  '/projects/scribble-ui/gallery/$id': typeof ProjectsScribbleUiGalleryIdRoute
+  '/projects/scribble-ui/gallery': typeof ProjectsScribbleUiGalleryIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -75,9 +91,11 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/context-layer': typeof ProjectsContextLayerRoute
   '/projects/scribble': typeof ProjectsScribbleRoute
-  '/projects/scribble-ui': typeof ProjectsScribbleUiRoute
+  '/projects/scribble-ui': typeof ProjectsScribbleUiRouteWithChildren
   '/r/$': typeof RSplatRoute
   '/blog': typeof BlogIndexRoute
+  '/projects/scribble-ui/gallery/$id': typeof ProjectsScribbleUiGalleryIdRoute
+  '/projects/scribble-ui/gallery': typeof ProjectsScribbleUiGalleryIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -86,9 +104,11 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/context-layer': typeof ProjectsContextLayerRoute
   '/projects/scribble': typeof ProjectsScribbleRoute
-  '/projects/scribble-ui': typeof ProjectsScribbleUiRoute
+  '/projects/scribble-ui': typeof ProjectsScribbleUiRouteWithChildren
   '/r/$': typeof RSplatRoute
   '/blog/': typeof BlogIndexRoute
+  '/projects/scribble-ui/gallery/$id': typeof ProjectsScribbleUiGalleryIdRoute
+  '/projects/scribble-ui/gallery/': typeof ProjectsScribbleUiGalleryIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +121,8 @@ export interface FileRouteTypes {
     | '/projects/scribble-ui'
     | '/r/$'
     | '/blog'
+    | '/projects/scribble-ui/gallery/$id'
+    | '/projects/scribble-ui/gallery'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +133,8 @@ export interface FileRouteTypes {
     | '/projects/scribble-ui'
     | '/r/$'
     | '/blog'
+    | '/projects/scribble-ui/gallery/$id'
+    | '/projects/scribble-ui/gallery'
   id:
     | '__root__'
     | '/'
@@ -121,6 +145,8 @@ export interface FileRouteTypes {
     | '/projects/scribble-ui'
     | '/r/$'
     | '/blog/'
+    | '/projects/scribble-ui/gallery/$id'
+    | '/projects/scribble-ui/gallery/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -129,7 +155,7 @@ export interface RootRouteChildren {
   BlogSlugRoute: typeof BlogSlugRoute
   ProjectsContextLayerRoute: typeof ProjectsContextLayerRoute
   ProjectsScribbleRoute: typeof ProjectsScribbleRoute
-  ProjectsScribbleUiRoute: typeof ProjectsScribbleUiRoute
+  ProjectsScribbleUiRoute: typeof ProjectsScribbleUiRouteWithChildren
   RSplatRoute: typeof RSplatRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
@@ -192,8 +218,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/scribble-ui/gallery/': {
+      id: '/projects/scribble-ui/gallery/'
+      path: '/gallery'
+      fullPath: '/projects/scribble-ui/gallery'
+      preLoaderRoute: typeof ProjectsScribbleUiGalleryIndexRouteImport
+      parentRoute: typeof ProjectsScribbleUiRoute
+    }
+    '/projects/scribble-ui/gallery/$id': {
+      id: '/projects/scribble-ui/gallery/$id'
+      path: '/gallery/$id'
+      fullPath: '/projects/scribble-ui/gallery/$id'
+      preLoaderRoute: typeof ProjectsScribbleUiGalleryIdRouteImport
+      parentRoute: typeof ProjectsScribbleUiRoute
+    }
   }
 }
+
+interface ProjectsScribbleUiRouteChildren {
+  ProjectsScribbleUiGalleryIdRoute: typeof ProjectsScribbleUiGalleryIdRoute
+  ProjectsScribbleUiGalleryIndexRoute: typeof ProjectsScribbleUiGalleryIndexRoute
+}
+
+const ProjectsScribbleUiRouteChildren: ProjectsScribbleUiRouteChildren = {
+  ProjectsScribbleUiGalleryIdRoute: ProjectsScribbleUiGalleryIdRoute,
+  ProjectsScribbleUiGalleryIndexRoute: ProjectsScribbleUiGalleryIndexRoute,
+}
+
+const ProjectsScribbleUiRouteWithChildren =
+  ProjectsScribbleUiRoute._addFileChildren(ProjectsScribbleUiRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -201,7 +254,7 @@ const rootRouteChildren: RootRouteChildren = {
   BlogSlugRoute: BlogSlugRoute,
   ProjectsContextLayerRoute: ProjectsContextLayerRoute,
   ProjectsScribbleRoute: ProjectsScribbleRoute,
-  ProjectsScribbleUiRoute: ProjectsScribbleUiRoute,
+  ProjectsScribbleUiRoute: ProjectsScribbleUiRouteWithChildren,
   RSplatRoute: RSplatRoute,
   BlogIndexRoute: BlogIndexRoute,
 }

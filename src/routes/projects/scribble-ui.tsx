@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute, Link } from "@tanstack/react-router"
 import { Paragraph, Text, Comment, Prompt, AsciiTitle, CodeBlock } from "~/components/terminal"
 
 export const Route = createFileRoute("/projects/scribble-ui")({
@@ -87,14 +87,21 @@ export function Demo() {
         }
       />
 
-      <div className="mt-6 flex gap-4">
+      <div className="mt-6 flex flex-wrap gap-4">
+        <Link
+          to="/projects/scribble-ui/gallery/$id"
+          params={{ id: "button" }}
+          className="px-4 py-2 bg-accent text-bg hover:bg-accent/90 transition-colors text-sm font-medium"
+        >
+          → View Component Gallery
+        </Link>
         <a 
           href="https://github.com/MitchForest/scribble-ui" 
           target="_blank"
           rel="noopener noreferrer"
           className="px-3 py-1.5 border border-border hover:border-accent hover:text-accent transition-colors text-sm"
         >
-          → View on GitHub
+          GitHub
         </a>
         <a 
           href="https://github.com/MitchForest/scribble-ui" 
@@ -102,7 +109,7 @@ export function Demo() {
           rel="noopener noreferrer"
           className="px-3 py-1.5 border border-accent bg-accent/10 hover:bg-accent/20 text-accent transition-colors text-sm flex items-center gap-1.5"
         >
-          <span>★</span> Star this project
+          <span>★</span> Star
         </a>
       </div>
     </div>
