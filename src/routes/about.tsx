@@ -36,13 +36,12 @@ function AboutPage() {
 
             <div className="mt-6 p-4 border border-border bg-bg-alt">
               <Text variant="muted" className="block mb-2">
-                {"// What I value"}
+                {"// How I build"}
               </Text>
               <ul className="space-y-1 text-fg-dim">
-                <li>→ Ship fast, iterate faster</li>
-                <li>→ Simple {">"} clever</li>
-                <li>→ Users over metrics</li>
-                <li>→ Build with AI, not against it</li>
+                <li>→ Prototype → plan → scale</li>
+                <li>→ Systems over one-off solutions</li>
+                <li>→ Human intent, AI execution</li>
               </ul>
             </div>
           </div>
@@ -54,14 +53,16 @@ function AboutPage() {
         command="cat links.json"
         output={
           <pre className="text-fg-dim">
-{`{
-  "github": "github.com/mitchwhite",
-  "twitter": "@mitchforest",
-  "email": "mitch@mitchforest.com"
-}`}
+{`{`}
+{"\n"}  <span className="text-fg-muted">"github"</span>: <a href="https://github.com/MitchForest" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">"github.com/MitchForest"</a>,
+{"\n"}  <span className="text-fg-muted">"twitter"</span>: <a href="https://twitter.com/mitchforest" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">"@mitchforest"</a>,
+{"\n"}  <span className="text-fg-muted">"instagram"</span>: <a href="https://instagram.com/mitchforest_" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">"@mitchforest_"</a>
+{"\n"}{`}`}
           </pre>
         }
       />
+
+      <Prompt path="~/about" showCursor />
     </div>
   )
 }
