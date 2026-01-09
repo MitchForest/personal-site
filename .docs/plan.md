@@ -198,64 +198,64 @@ interface ComponentDoc {
 
 ## Component Documentation Checklist
 
-### Core Components (27)
-- [ ] `button` — ScribbleButton
-- [ ] `card` — ScribbleCard, ScribbleCardHeader, ScribbleCardTitle, ScribbleCardDescription, ScribbleCardContent, ScribbleCardFooter
-- [ ] `dialog` — ScribbleDialog, ScribbleDialogTrigger, ScribbleDialogContent, ScribbleDialogHeader, ScribbleDialogTitle, ScribbleDialogDescription, ScribbleDialogFooter
-- [ ] `alert-dialog` — ScribbleAlertDialog, ScribbleAlertDialogTrigger, ScribbleAlertDialogContent, ScribbleAlertDialogHeader, ScribbleAlertDialogTitle, ScribbleAlertDialogDescription, ScribbleAlertDialogFooter, ScribbleAlertDialogAction, ScribbleAlertDialogCancel
-- [ ] `input` — ScribbleInput
-- [ ] `textarea` — ScribbleTextarea
-- [ ] `checkbox` — ScribbleCheckbox
-- [ ] `select` — ScribbleSelect, ScribbleSelectTrigger, ScribbleSelectContent, ScribbleSelectItem, ScribbleSelectValue
-- [ ] `badge` — ScribbleBadge
-- [ ] `avatar` — ScribbleAvatar
-- [ ] `avatar-picker` — ScribbleAvatarPicker
-- [ ] `tooltip` — ScribbleTooltip, ScribbleTooltipTrigger, ScribbleTooltipContent
-- [ ] `toast` — ScribbleToast, useScribbleToast
-- [ ] `tabs` — ScribbleTabs, ScribbleTabsList, ScribbleTabsTrigger, ScribbleTabsContent
-- [ ] `accordion` — ScribbleAccordion, ScribbleAccordionItem, ScribbleAccordionTrigger, ScribbleAccordionContent
-- [ ] `toggle` — ScribbleToggle
-- [ ] `progress` — ScribbleProgress
-- [ ] `skeleton` — ScribbleSkeleton
-- [ ] `label` — ScribbleLabel
-- [ ] `sidebar` — ScribbleSidebar (and related)
-- [ ] `table` — ScribbleTable, ScribbleTableHeader, ScribbleTableBody, ScribbleTableRow, ScribbleTableHead, ScribbleTableCell
-- [ ] `input-otp` — ScribbleInputOTP
-- [ ] `rating` — ScribbleRating
-- [ ] `selection-card` — ScribbleSelectionCard
-- [ ] `link` — ScribbleLink
-- [ ] `page-header` — ScribblePageHeader
-- [ ] `page-footer` — ScribblePageFooter
-- [ ] `chart` — ScribbleChart (and related)
+### Core Components (27) ✅
+- [x] `button` — ScribbleButton
+- [x] `card` — ScribbleCard, ScribbleCardHeader, ScribbleCardTitle, ScribbleCardDescription, ScribbleCardContent, ScribbleCardFooter
+- [x] `dialog` — ScribbleDialog, ScribbleDialogTrigger, ScribbleDialogContent, ScribbleDialogHeader, ScribbleDialogTitle, ScribbleDialogDescription, ScribbleDialogFooter
+- [x] `alert-dialog` — ScribbleAlertDialog, ScribbleAlertDialogTrigger, ScribbleAlertDialogContent, ScribbleAlertDialogHeader, ScribbleAlertDialogTitle, ScribbleAlertDialogDescription, ScribbleAlertDialogFooter, ScribbleAlertDialogAction, ScribbleAlertDialogCancel
+- [x] `input` — ScribbleInput
+- [x] `textarea` — ScribbleTextarea
+- [x] `checkbox` — ScribbleCheckbox
+- [x] `select` — ScribbleSelect, ScribbleSelectTrigger, ScribbleSelectContent, ScribbleSelectItem, ScribbleSelectValue
+- [x] `badge` — ScribbleBadge
+- [x] `avatar` — ScribbleAvatar
+- [x] `avatar-picker` — ScribbleAvatarPicker
+- [x] `tooltip` — ScribbleTooltip, ScribbleTooltipTrigger, ScribbleTooltipContent
+- [x] `toast` — ScribbleToast, useScribbleToast
+- [x] `tabs` — ScribbleTabs, ScribbleTabsList, ScribbleTabsTrigger, ScribbleTabsContent
+- [x] `accordion` — ScribbleAccordion, ScribbleAccordionItem, ScribbleAccordionTrigger, ScribbleAccordionContent
+- [x] `toggle` — ScribbleToggle
+- [x] `progress` — ScribbleProgress
+- [x] `skeleton` — ScribbleSkeleton
+- [x] `label` — ScribbleLabel
+- [x] `sidebar` — ScribbleSidebar (and related)
+- [x] `table` — ScribbleTable, ScribbleTableHeader, ScribbleTableBody, ScribbleTableRow, ScribbleTableHead, ScribbleTableCell
+- [x] `input-otp` — ScribbleInputOTP
+- [x] `rating` — ScribbleRating
+- [x] `selection-card` — ScribbleSelectionCard
+- [x] `link` — ScribbleLink
+- [x] `page-header` — ScribblePageHeader
+- [x] `page-footer` — ScribblePageFooter
+- [x] `chart` — ScribbleChart (and related)
 
-### Annotation Components (6)
-- [ ] `annotation-underline` — ScribbleUnderline
-- [ ] `annotation-highlight` — ScribbleHighlight
-- [ ] `annotation-bracket` — ScribbleBracket
-- [ ] `annotation-circle` — ScribbleCircle
-- [ ] `annotation-box` — ScribbleBox
-- [ ] `annotation-crossed-off` — ScribbleCrossedOff
+### Annotation Components (6) ✅
+- [x] `annotation-underline` — ScribbleUnderline
+- [x] `annotation-highlight` — ScribbleHighlight
+- [x] `annotation-bracket` — ScribbleBracket
+- [x] `annotation-circle` — ScribbleCircle
+- [x] `annotation-box` — ScribbleBox
+- [x] `annotation-crossed-off` — ScribbleCrossedOff
 
-### Decorative Components (9)
-- [ ] `decorative-arrow` — ScribbleArrow
-- [ ] `decorative-divider` — ScribbleDivider
-- [ ] `decorative-doodle` — ScribbleDoodle
-- [ ] `decorative-heart` — ScribbleHeart
-- [ ] `decorative-star` — ScribbleStar
-- [ ] `decorative-sticky-note` — ScribbleStickyNote
-- [ ] `decorative-tape` — ScribbleTape
-- [ ] `decorative-badge` — ScribbleCircleBadge
-- [ ] `decorative-logo` — ScribbleLogo
+### Decorative Components (9) ✅
+- [x] `decorative-arrow` — ScribbleArrow
+- [x] `decorative-divider` — ScribbleDivider
+- [x] `decorative-doodle` — ScribbleDoodle
+- [x] `decorative-heart` — ScribbleHeart
+- [x] `decorative-star` — ScribbleStar
+- [x] `decorative-sticky-note` — ScribbleStickyNote
+- [x] `decorative-tape` — ScribbleTape
+- [x] `decorative-badge` — ScribbleCircleBadge
+- [x] `decorative-logo` — ScribbleLogo
 
-### Background Components (2)
-- [ ] `background-notebook` — ScribbleNotebook
-- [ ] `background-torn-edge` — ScribbleTornEdge
+### Background Components (2) ✅
+- [x] `background-notebook` — ScribbleNotebook
+- [x] `background-torn-edge` — ScribbleTornEdge
 
-### Icon Components (4)
-- [ ] `icon` — ScribbleIcon
-- [ ] `icon-close` — ScribbleCloseIcon
-- [ ] `icon-hamburger` — ScribbleHamburgerIcon
-- [ ] `icon-plus-minus` — ScribblePlusMinusIcon
+### Icon Components (4) ✅
+- [x] `icon` — ScribbleIcon
+- [x] `icon-close` — ScribbleCloseIcon
+- [x] `icon-hamburger` — ScribbleHamburgerIcon
+- [x] `icon-plus-minus` — ScribblePlusMinusIcon
 
 ---
 
@@ -270,4 +270,9 @@ interface ComponentDoc {
 - Preview panel shows all variants for the selected component
 - Props panel is a scrollable table
 - Code panel shows install command + usage example
-- Status bar shows current component index (e.g., "1/48")
+- Status bar shows current component index (e.g., "1/47")
+- **Important**: scribble-ui components use rough.js which requires client-side rendering. The gallery uses dynamic imports with `useEffect` to ensure components only render on the client.
+
+## Status: ✅ Complete
+
+Gallery is fully functional at `/projects/scribble-ui/gallery`. All 47 components are documented with live previews, API reference, and code examples.
