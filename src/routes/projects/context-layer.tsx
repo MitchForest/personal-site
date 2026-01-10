@@ -10,11 +10,30 @@ function ContextLayerPage() {
     <div className="max-w-3xl">
       <AsciiTitle text="CONTEXT LAYER" />
       
-      <div className="flex items-center gap-3 mb-6">
+      <div className="flex items-center gap-3 mb-4">
         <Comment>Structured context for AI agents</Comment>
         <span className="text-[10px] px-1.5 py-0.5 bg-accent/20 text-accent border border-accent/30">
           OSS
         </span>
+      </div>
+
+      <div className="mb-6 flex flex-wrap gap-3">
+        <a 
+          href="https://github.com/MitchForest/context-layer" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-3 py-1.5 border border-border hover:border-accent hover:text-accent transition-colors text-sm"
+        >
+          GitHub
+        </a>
+        <a 
+          href="https://github.com/MitchForest/context-layer" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-3 py-1.5 border border-accent bg-accent/10 hover:bg-accent/20 text-accent transition-colors text-sm flex items-center gap-1.5"
+        >
+          <span>★</span> Star
+        </a>
       </div>
 
       <Prompt
@@ -84,24 +103,6 @@ export const contextLayers = {
         }
       />
 
-      <div className="mt-6 flex gap-4">
-        <a 
-          href="https://github.com/MitchForest/context-layer" 
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-3 py-1.5 border border-border hover:border-accent hover:text-accent transition-colors text-sm"
-        >
-          → View on GitHub
-        </a>
-        <a 
-          href="https://github.com/MitchForest/context-layer" 
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-3 py-1.5 border border-accent bg-accent/10 hover:bg-accent/20 text-accent transition-colors text-sm flex items-center gap-1.5"
-        >
-          <span>★</span> Star this project
-        </a>
-      </div>
     </div>
   )
 }
