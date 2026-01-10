@@ -494,7 +494,12 @@ function renderComponent(
   }
 
   if (componentId === "decorative-tape") {
-    return <ScribbleTape />
+    // Tape uses position:absolute - needs a positioned parent container
+    return (
+      <div className="relative w-24 h-12 bg-gray-200 rounded">
+        <ScribbleTape position="top-center" />
+      </div>
+    )
   }
 
   if (componentId === "decorative-badge") {
