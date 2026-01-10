@@ -22,10 +22,11 @@ export function PreviewPanel({ component, className }: PreviewPanelProps) {
         <div className="border-b border-border/50 px-3 py-1 text-xs text-fg-muted">
           ─ Variants
         </div>
-        <div className="p-4 space-y-6 bg-white/5">
+        <div className="p-4 space-y-6">
           {component.variants.map((variant) => (
             <div key={variant.name} className="flex items-center gap-6">
-              <div className="min-w-[200px] flex justify-center">
+              {/* Light cream background for component preview - matches scribble app */}
+              <div className="min-w-[250px] flex justify-center p-4 rounded-lg bg-[#fffef8] border border-gray-200">
                 <ComponentPreview
                   componentId={component.id}
                   componentName={component.name}
@@ -34,7 +35,7 @@ export function PreviewPanel({ component, className }: PreviewPanelProps) {
               </div>
               <div className="text-xs text-fg-muted font-mono">
                 {Object.entries(variant.props).map(([key, value]) => (
-                  <span key={key}>
+                  <span key={key} className="mr-2">
                     {key}=<span className="text-accent">"{String(value)}"</span>
                   </span>
                 ))}
