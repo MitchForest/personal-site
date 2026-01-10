@@ -26,7 +26,9 @@ export function PreviewPanel({ component, className }: PreviewPanelProps) {
           {component.variants.map((variant) => (
             <div key={variant.name} className="flex items-center gap-6">
               {/* Light cream background for component preview - matches scribble app */}
-              <div className="min-w-[250px] flex justify-center p-4 rounded-lg bg-[#fffef8] border border-gray-200">
+              {/* scribble-gallery-preview: disables browser focus ring (components use sketchy borders) */}
+              {/* overflow-visible: needed for tape decorations that extend beyond card bounds */}
+              <div className="scribble-gallery-preview min-w-[250px] flex justify-center p-6 rounded-lg bg-[#fffef8] border border-gray-200 overflow-visible">
                 <ComponentPreview
                   componentId={component.id}
                   componentName={component.name}

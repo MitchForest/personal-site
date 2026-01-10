@@ -67,10 +67,10 @@ export const components: ComponentDoc[] = [
     variants: [
       { name: "default", props: {}, label: "Default" },
       { name: "withTape", props: { showTape: true }, label: "With Tape" },
-      { name: "hachure", props: { overlayPattern: "hachure", overlayColor: "rgba(251, 191, 36, 0.15)" }, label: "Hachure Pattern" },
-      { name: "dots", props: { overlayPattern: "dots", overlayColor: "rgba(96, 165, 250, 0.18)" }, label: "Dots Pattern" },
-      { name: "zigzag", props: { overlayPattern: "zigzag-line", overlayColor: "rgba(224, 122, 95, 0.12)" }, label: "Zigzag Pattern" },
-      { name: "crossHatch", props: { overlayPattern: "cross-hatch", overlayColor: "rgba(74, 222, 128, 0.12)" }, label: "Cross-Hatch Pattern" },
+      { name: "hachure", props: { overlayPattern: "hachure", overlayColor: "rgba(251, 191, 36, 0.35)" }, label: "Hachure Pattern" },
+      { name: "dots", props: { overlayPattern: "dots", overlayColor: "rgba(96, 165, 250, 0.4)" }, label: "Dots Pattern" },
+      { name: "zigzag", props: { overlayPattern: "zigzag-line", overlayColor: "rgba(224, 122, 95, 0.3)" }, label: "Zigzag Pattern" },
+      { name: "crossHatch", props: { overlayPattern: "cross-hatch", overlayColor: "rgba(74, 222, 128, 0.3)" }, label: "Cross-Hatch Pattern" },
     ],
     props: [
       { name: "overlayPattern", type: '"solid" | "hachure" | "zigzag-line" | "cross-hatch" | "dots"', default: "undefined", description: "Overlay fill pattern style" },

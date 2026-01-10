@@ -92,6 +92,14 @@ body {
   outline-offset: 2px;
 }
 
+/* Disable browser focus ring for scribble-ui components - they handle focus with rough.js sketchy borders */
+.scribble-gallery-preview *:focus-visible,
+.scribble-gallery-preview input:focus-visible,
+.scribble-gallery-preview textarea:focus-visible,
+.scribble-gallery-preview button:focus-visible {
+  outline: none;
+}
+
 /* Blinking cursor animation */
 @keyframes blink {
   0%, 50% { opacity: 1; }
