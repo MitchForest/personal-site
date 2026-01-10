@@ -509,17 +509,15 @@ function renderComponent(
     )
   }
 
-  if (componentId === "decorative-logo") {
-    return <ScribbleLogo size="md" />
-  }
+  // NOTE: decorative-logo removed - scribble-app-specific
 
   // Icons
   if (componentId === "icon") {
     return (
       <div className="flex gap-4">
-        <ScribbleIcon name="star" size={24} />
-        <ScribbleIcon name="heart" size={24} />
-        <ScribbleIcon name="check" size={24} />
+        <ScribbleIcon name="home" size={24} />
+        <ScribbleIcon name="settings" size={24} />
+        <ScribbleIcon name="users" size={24} />
       </div>
     )
   }
@@ -552,10 +550,14 @@ function renderComponent(
 
   if (componentId === "background-torn-edge") {
     return (
-      <div className="bg-gray-300 p-4 rounded">
-        <ScribbleTornEdge className="w-56 h-32 p-4 bg-[#fffef8]">
-          <p className="text-sm text-gray-700">Paper with torn edge effect</p>
-        </ScribbleTornEdge>
+      <div className="relative w-64 h-40 bg-gray-200 overflow-hidden rounded">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-56 bg-[#fffef8] shadow-sm" style={{ position: 'relative' }}>
+            <ScribbleTornEdge className="w-full p-4">
+              <p className="text-sm text-gray-700">Torn paper effect</p>
+            </ScribbleTornEdge>
+          </div>
+        </div>
       </div>
     )
   }

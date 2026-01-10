@@ -62,19 +62,14 @@ export const components: ComponentDoc[] = [
     id: "card",
     name: "ScribbleCard",
     title: "Card",
-    description: "Container with a sketchy border, optional tape decoration, and fill patterns. Includes header, content, and footer sub-components.",
+    description: "Container with a sketchy hand-drawn border and optional tape decoration. Includes header, content, and footer sub-components.",
     category: "core",
     variants: [
       { name: "default", props: {}, label: "Default" },
       { name: "withTape", props: { showTape: true }, label: "With Tape" },
-      { name: "hachure", props: { fillPattern: "hachure" }, label: "Hachure Fill" },
-      { name: "dots", props: { fillPattern: "dots" }, label: "Dots Fill" },
-      { name: "zigzag", props: { fillPattern: "zigzag-line" }, label: "Zigzag Fill" },
-      { name: "crossHatch", props: { fillPattern: "cross-hatch" }, label: "Cross-Hatch Fill" },
     ],
     props: [
       { name: "showTape", type: "boolean", default: "false", description: "Show decorative tape on corner" },
-      { name: "fillPattern", type: '"solid" | "hachure" | "zigzag-line" | "cross-hatch" | "dots"', default: '"solid"', description: "Fill pattern for the card background" },
       { name: "className", type: "string", default: '""', description: "Additional CSS classes" },
     ],
     usage: `import { ScribbleCard, ScribbleCardHeader, ScribbleCardTitle, ScribbleCardContent } from "~/components/scribble-ui"
@@ -835,22 +830,7 @@ toast({
   1
 </ScribbleCircleBadge>`,
   },
-  {
-    id: "decorative-logo",
-    name: "ScribbleLogo",
-    title: "Logo",
-    description: "Scribble UI logo component.",
-    category: "decorative",
-    variants: [
-      { name: "default", props: {}, label: "Default" },
-    ],
-    props: [
-      { name: "size", type: "number", default: "32", description: "Logo size" },
-    ],
-    usage: `import { ScribbleLogo } from "~/components/scribble-ui"
-
-<ScribbleLogo size={48} />`,
-  },
+  // NOTE: decorative-logo removed - scribble-app-specific branding
 
   // ============================================
   // BACKGROUND COMPONENTS

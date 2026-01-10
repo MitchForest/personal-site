@@ -15,6 +15,15 @@ const categoryLabels: Record<ComponentDoc["category"], string> = {
   icon: "ICONS",
 }
 
+// Strip redundant prefixes from display names
+function getDisplayName(id: string): string {
+  return id
+    .replace(/^annotation-/, "")
+    .replace(/^decorative-/, "")
+    .replace(/^background-/, "")
+    .replace(/^icon-/, "")
+}
+
 export function GallerySidebar({ selectedId, onSelect, className }: GallerySidebarProps) {
   return (
     <div className={cn("w-48 border-r border-border/50 overflow-y-auto", className)}>
@@ -40,7 +49,7 @@ export function GallerySidebar({ selectedId, onSelect, className }: GallerySideb
                 )}
               >
                 <span className="mr-2">{selectedId === item.id ? "›" : " "}</span>
-                {item.id}
+                {getDisplayName(item.id)}
               </button>
             ))}
           </div>
