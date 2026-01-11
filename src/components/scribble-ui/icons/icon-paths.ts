@@ -1,17 +1,3 @@
-// ═══════════════════════════════════════════════════════════════════════════
-// ICON PATHS
-// ═══════════════════════════════════════════════════════════════════════════
-// Auto-generated from Lucide icon SVGs.
-// Do not edit manually - regenerate using scripts/extract-lucide-paths.js
-//
-// Generated: 91 icons
-// Source: Lucide Icons (https://lucide.dev) - ISC License
-
-/**
- * Path command for SVG rendering.
- * c = command type (M, L, C, Q, A, Z, etc.)
- * a = arguments array
- */
 export interface PathCommand {
   c: string;
   a: number[];
