@@ -25,6 +25,12 @@ function ScribbleUIPage() {
         >
           → View Gallery
         </Link>
+        <Link
+          to="/projects/scribble-ui/icons"
+          className="px-3 py-1.5 border border-border hover:border-accent hover:text-accent transition-colors text-sm"
+        >
+          ✏️ Icons (82)
+        </Link>
         <a 
           href="https://github.com/MitchForest/scribble-ui" 
           target="_blank"

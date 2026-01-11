@@ -51,6 +51,8 @@ export * from "./decorative/tape"
 
 // Icons
 export * from "./icons/icon"
+export { RoughIcon, type RoughIconProps, type RoughIconName, roughIconNames } from "./icons/rough-icon"
+export { getIconPath, iconPaths, iconNames as lucideIconNames, type PathCommand, type IconDefinition, type IconName as LucideIconName } from "./icons/icon-paths"
 export * from "./icons/close"
 export * from "./icons/hamburger"
 export * from "./icons/plus-minus"
