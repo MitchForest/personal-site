@@ -1,14 +1,14 @@
 /**
  * Scribble Icons Showcase
  *
- * Displays all 82 Lucide-based rough icons in a visual grid.
- * Icons are rendered with the RoughIcon component which uses
+ * Displays all 91 Lucide-based scribble icons in a visual grid.
+ * Icons are rendered with the ScribbleIcon component which uses
  * Rough.js to create a hand-drawn aesthetic.
  */
 
 import { useState } from "react"
 import { createFileRoute, Link } from "@tanstack/react-router"
-import { RoughIcon, lucideIconNames } from "~/components/scribble-ui"
+import { ScribbleIcon, iconNames } from "~/components/scribble-ui"
 import { cn } from "~/lib/utils"
 
 export const Route = createFileRoute("/projects/scribble-ui/icons")({
@@ -80,13 +80,13 @@ function IconsShowcase() {
       {/* Icon Grid */}
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-1">
-          {lucideIconNames.map((name) => (
+          {iconNames.map((name) => (
             <button
               key={name}
               onMouseEnter={() => setHoveredIcon(name)}
               onMouseLeave={() => setHoveredIcon(null)}
               onClick={() => {
-                navigator.clipboard.writeText(`<RoughIcon name="${name}" />`)
+                navigator.clipboard.writeText(`<ScribbleIcon name="${name}" />`)
               }}
               className={cn(
                 "flex flex-col items-center justify-center p-3 rounded-lg transition-all",
@@ -94,9 +94,9 @@ function IconsShowcase() {
                 "focus:outline-none focus:ring-2 focus:ring-accent/50",
                 hoveredIcon === name && "bg-accent/5"
               )}
-              title={`Click to copy: <RoughIcon name="${name}" />`}
+              title={`Click to copy: <ScribbleIcon name="${name}" />`}
             >
-              <RoughIcon
+              <ScribbleIcon
                 name={name as any}
                 size={selectedSize}
                 color={selectedColor}
@@ -119,7 +119,7 @@ function IconsShowcase() {
       {/* Hovered Icon Detail */}
       {hoveredIcon && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-bg-alt border border-border px-6 py-3 rounded-lg shadow-lg flex items-center gap-4">
-          <RoughIcon
+          <ScribbleIcon
             name={hoveredIcon as any}
             size={32}
             color={selectedColor}
@@ -135,7 +135,7 @@ function IconsShowcase() {
       {/* Stats */}
       <div className="max-w-6xl mx-auto mt-12 text-center text-fg-muted text-sm">
         <p>
-          {lucideIconNames.length} icons • Extracted from{" "}
+          {iconNames.length} icons • Extracted from{" "}
           <a
             href="https://lucide.dev"
             target="_blank"
