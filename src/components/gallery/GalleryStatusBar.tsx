@@ -37,6 +37,7 @@ export function GalleryStatusBar({
 
         <div className="flex items-center gap-4">
           <span className="text-accent">[{selectedId}]</span>
+          <span className="text-fg-muted">tab:{activeTab}</span>
           <span className="text-fg-muted">
             {selectedIndex + 1}/{componentCount}
           </span>

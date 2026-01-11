@@ -1,5 +1,5 @@
-import { RoughNotation } from "react-rough-notation"
 import type { ReactNode } from "react"
+import { RoughNotation } from "react-rough-notation"
 
 type BracketPosition = "left" | "right" | "top" | "bottom"
 

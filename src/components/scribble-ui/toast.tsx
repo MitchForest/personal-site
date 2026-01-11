@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { Toaster as Sonner, toast as sonnerToast } from "sonner"
 import rough from "roughjs"
 import { ScribbleClose } from "./icons/close"
@@ -44,7 +44,7 @@ function ScribbleToastContent({
   const rotation = ((seed % 5) - 2) * 0.5
 
   // Get border color based on type
-  const getBorderColor = () => {
+  const getBorderColor = useCallback(() => {
     switch (type) {
       case "success": return "#059669"
       case "error": return "#dc2626"
@@ -52,7 +52,7 @@ function ScribbleToastContent({
       case "info": return "#3b82f6"
       default: return "#6b7280"
     }
-  }
+  }, [type])
 
   // Get icon based on type
   const getIcon = () => {
@@ -135,7 +135,7 @@ function ScribbleToastContent({
       }
     )
     svg.appendChild(border)
-  }, [dimensions, type, seed])
+  }, [dimensions, getBorderColor, seed, type])
 
   return (
     <div

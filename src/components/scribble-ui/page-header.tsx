@@ -8,6 +8,10 @@ export interface ScribblePageHeaderProps {
   showSignIn?: boolean
   /** Show join waitlist button */
   showWaitlist?: boolean
+  /** Href for sign-in button (use a normal anchor to avoid coupling to router route types) */
+  signInHref?: string
+  /** Href for waitlist button (use a normal anchor to avoid coupling to router route types) */
+  waitlistHref?: string
   /** Additional class names */
   className?: string
 }
@@ -15,6 +19,8 @@ export interface ScribblePageHeaderProps {
 export function ScribblePageHeader({
   showSignIn = false,
   showWaitlist = false,
+  signInHref = "/login",
+  waitlistHref = "/waitlist",
   className,
 }: ScribblePageHeaderProps) {
   return (
@@ -27,12 +33,12 @@ export function ScribblePageHeader({
         <nav className="flex items-center gap-4">
           {showSignIn && (
             <ScribbleButton asChild variant="primary" size="sm">
-              <Link to="/login">Sign In</Link>
+              <a href={signInHref}>Sign In</a>
             </ScribbleButton>
           )}
           {showWaitlist && (
             <ScribbleButton asChild variant="primary" size="sm">
-              <Link to="/waitlist">Join Waitlist</Link>
+              <a href={waitlistHref}>Join Waitlist</a>
             </ScribbleButton>
           )}
         </nav>

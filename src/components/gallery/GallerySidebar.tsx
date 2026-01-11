@@ -1,5 +1,5 @@
 import { cn } from "~/lib/utils"
-import { components, categories, getComponentsByCategory, type ComponentDoc } from "~/data/scribble-ui-docs"
+import { categories, getComponentsByCategory, type ComponentDoc } from "~/data/scribble-ui-docs"
 
 interface GallerySidebarProps {
   selectedId: string

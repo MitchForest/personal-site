@@ -1,6 +1,7 @@
-import { forwardRef, useEffect, useRef, useState } from "react"
 import { Slot } from "radix-ui"
+import { forwardRef, useEffect, useRef, useState } from "react"
 import rough from "roughjs"
+
 import { ScribbleUnderline } from "./annotation/underline"
 import { cn } from "./lib/utils"
 

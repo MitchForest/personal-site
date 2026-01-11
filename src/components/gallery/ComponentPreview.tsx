@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, type ReactNode } from "react"
+import { useState, useEffect, type ComponentProps, type ReactNode } from "react"
 
 interface ComponentPreviewProps {
   componentId: string
@@ -116,8 +116,6 @@ function renderComponent(
     ScribbleTableCell,
     // Input OTP
     ScribbleInputOTP,
-    ScribbleInputOTPGroup,
-    ScribbleInputOTPSlot,
     // Selection Card
     ScribbleSelectionCard,
     // Avatar Picker
@@ -138,7 +136,6 @@ function renderComponent(
     ScribbleTape,
     ScribbleCircleBadge,
     ScribbleStickyNote,
-    ScribbleLogo,
     // Icons
     ScribbleIcon,
     ScribbleClose,
@@ -381,16 +378,7 @@ function renderComponent(
 
   // Input OTP
   if (componentId === "input-otp") {
-    return (
-      <ScribbleInputOTP maxLength={4}>
-        <ScribbleInputOTPGroup>
-          <ScribbleInputOTPSlot index={0} />
-          <ScribbleInputOTPSlot index={1} />
-          <ScribbleInputOTPSlot index={2} />
-          <ScribbleInputOTPSlot index={3} />
-        </ScribbleInputOTPGroup>
-      </ScribbleInputOTP>
-    )
+    return <ScribbleInputOTP maxLength={4} />
   }
 
   // Selection Card
@@ -430,8 +418,19 @@ function renderComponent(
   }
 
   if (componentId === "annotation-bracket") {
+    const side = props.side as "left" | "right" | "parenthesis" | "box" | undefined
+    type BracketsProp = ComponentProps<typeof ScribbleBracket>["brackets"]
+    const brackets: BracketsProp =
+      side === "left"
+        ? "left"
+        : side === "right"
+          ? "right"
+          : side === "box"
+            ? (["left", "right", "top", "bottom"] as const)
+            : (["left", "right"] as const)
+
     return (
-      <ScribbleBracket show type={props.side as "left" | "right" | "parenthesis" | "box"}>
+      <ScribbleBracket show brackets={brackets}>
         Bracketed
       </ScribbleBracket>
     )
@@ -466,7 +465,7 @@ function renderComponent(
     return (
       <ScribbleArrow
         direction={props.direction as "up" | "down" | "left" | "right" || "right"}
-        size={32}
+        length={48}
       />
     )
   }
@@ -486,11 +485,25 @@ function renderComponent(
   }
 
   if (componentId === "decorative-heart") {
-    return <ScribbleHeart size={32} filled={props.filled as boolean} />
+    const filled = props.filled as boolean
+    return (
+      <ScribbleHeart
+        size={32}
+        strokeColor="accent"
+        fillColor={filled ? "accent" : "transparent"}
+      />
+    )
   }
 
   if (componentId === "decorative-star") {
-    return <ScribbleStar size={32} filled={props.filled as boolean} />
+    const filled = props.filled as boolean
+    return (
+      <ScribbleStar
+        size={32}
+        color={filled ? "warning" : "muted"}
+        fill={filled ? "var(--scribble-stroke-warning)" : undefined}
+      />
+    )
   }
 
   if (componentId === "decorative-tape") {
@@ -503,7 +516,7 @@ function renderComponent(
   }
 
   if (componentId === "decorative-badge") {
-    return <ScribbleCircleBadge size={48}>1</ScribbleCircleBadge>
+    return <ScribbleCircleBadge className="text-lg">1</ScribbleCircleBadge>
   }
 
   if (componentId === "decorative-sticky-note") {
@@ -538,8 +551,10 @@ function renderComponent(
   if (componentId === "icon-plus-minus") {
     return (
       <div className="flex gap-4">
-        <ScribblePlusMinus isPlus size={24} />
-        <ScribblePlusMinus isPlus={false} size={24} />
+        {/* plus */}
+        <ScribblePlusMinus isOpen={false} size={24} />
+        {/* minus */}
+        <ScribblePlusMinus isOpen size={24} />
       </div>
     )
   }
@@ -557,10 +572,9 @@ function renderComponent(
     return (
       <div className="relative w-64 h-40 bg-gray-200 overflow-hidden rounded">
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-56 bg-[#fffef8] shadow-sm" style={{ position: 'relative' }}>
-            <ScribbleTornEdge className="w-full p-4">
-              <p className="text-sm text-gray-700">Torn paper effect</p>
-            </ScribbleTornEdge>
+          <div className="relative w-56 bg-[#fffef8] shadow-sm p-4">
+            <ScribbleTornEdge className="w-full" />
+            <p className="text-sm text-gray-700">Torn paper effect</p>
           </div>
         </div>
       </div>
