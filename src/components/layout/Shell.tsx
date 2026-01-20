@@ -55,6 +55,20 @@ const navItems: FileTreeNode[] = [
             href: "/projects/context-layer",
             icon: "◈",
           },
+          {
+            id: "rust-terminal",
+            name: "rust-terminal.tsx",
+            type: "file",
+            href: "/projects/rust-terminal",
+            icon: "▣",
+          },
+          {
+            id: "sweepa",
+            name: "sweepa.tsx",
+            type: "file",
+            href: "/projects/sweepa",
+            icon: "⌫",
+          },
         ],
       },
       {

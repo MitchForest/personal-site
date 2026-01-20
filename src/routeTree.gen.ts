@@ -13,8 +13,10 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as RSplatRouteImport } from './routes/r/$'
+import { Route as ProjectsSweepaRouteImport } from './routes/projects/sweepa'
 import { Route as ProjectsScribbleUiRouteImport } from './routes/projects/scribble-ui'
 import { Route as ProjectsScribbleRouteImport } from './routes/projects/scribble'
+import { Route as ProjectsRustTerminalRouteImport } from './routes/projects/rust-terminal'
 import { Route as ProjectsContextLayerRouteImport } from './routes/projects/context-layer'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as ProjectsScribbleUiIndexRouteImport } from './routes/projects/scribble-ui/index'
@@ -42,6 +44,11 @@ const RSplatRoute = RSplatRouteImport.update({
   path: '/r/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsSweepaRoute = ProjectsSweepaRouteImport.update({
+  id: '/projects/sweepa',
+  path: '/projects/sweepa',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProjectsScribbleUiRoute = ProjectsScribbleUiRouteImport.update({
   id: '/projects/scribble-ui',
   path: '/projects/scribble-ui',
@@ -50,6 +57,11 @@ const ProjectsScribbleUiRoute = ProjectsScribbleUiRouteImport.update({
 const ProjectsScribbleRoute = ProjectsScribbleRouteImport.update({
   id: '/projects/scribble',
   path: '/projects/scribble',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsRustTerminalRoute = ProjectsRustTerminalRouteImport.update({
+  id: '/projects/rust-terminal',
+  path: '/projects/rust-terminal',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsContextLayerRoute = ProjectsContextLayerRouteImport.update({
@@ -90,8 +102,10 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/context-layer': typeof ProjectsContextLayerRoute
+  '/projects/rust-terminal': typeof ProjectsRustTerminalRoute
   '/projects/scribble': typeof ProjectsScribbleRoute
   '/projects/scribble-ui': typeof ProjectsScribbleUiRouteWithChildren
+  '/projects/sweepa': typeof ProjectsSweepaRoute
   '/r/$': typeof RSplatRoute
   '/blog': typeof BlogIndexRoute
   '/projects/scribble-ui/icons': typeof ProjectsScribbleUiIconsRoute
@@ -104,7 +118,9 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/context-layer': typeof ProjectsContextLayerRoute
+  '/projects/rust-terminal': typeof ProjectsRustTerminalRoute
   '/projects/scribble': typeof ProjectsScribbleRoute
+  '/projects/sweepa': typeof ProjectsSweepaRoute
   '/r/$': typeof RSplatRoute
   '/blog': typeof BlogIndexRoute
   '/projects/scribble-ui/icons': typeof ProjectsScribbleUiIconsRoute
@@ -118,8 +134,10 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/context-layer': typeof ProjectsContextLayerRoute
+  '/projects/rust-terminal': typeof ProjectsRustTerminalRoute
   '/projects/scribble': typeof ProjectsScribbleRoute
   '/projects/scribble-ui': typeof ProjectsScribbleUiRouteWithChildren
+  '/projects/sweepa': typeof ProjectsSweepaRoute
   '/r/$': typeof RSplatRoute
   '/blog/': typeof BlogIndexRoute
   '/projects/scribble-ui/icons': typeof ProjectsScribbleUiIconsRoute
@@ -134,8 +152,10 @@ export interface FileRouteTypes {
     | '/about'
     | '/blog/$slug'
     | '/projects/context-layer'
+    | '/projects/rust-terminal'
     | '/projects/scribble'
     | '/projects/scribble-ui'
+    | '/projects/sweepa'
     | '/r/$'
     | '/blog'
     | '/projects/scribble-ui/icons'
@@ -148,7 +168,9 @@ export interface FileRouteTypes {
     | '/about'
     | '/blog/$slug'
     | '/projects/context-layer'
+    | '/projects/rust-terminal'
     | '/projects/scribble'
+    | '/projects/sweepa'
     | '/r/$'
     | '/blog'
     | '/projects/scribble-ui/icons'
@@ -161,8 +183,10 @@ export interface FileRouteTypes {
     | '/about'
     | '/blog/$slug'
     | '/projects/context-layer'
+    | '/projects/rust-terminal'
     | '/projects/scribble'
     | '/projects/scribble-ui'
+    | '/projects/sweepa'
     | '/r/$'
     | '/blog/'
     | '/projects/scribble-ui/icons'
@@ -176,8 +200,10 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   BlogSlugRoute: typeof BlogSlugRoute
   ProjectsContextLayerRoute: typeof ProjectsContextLayerRoute
+  ProjectsRustTerminalRoute: typeof ProjectsRustTerminalRoute
   ProjectsScribbleRoute: typeof ProjectsScribbleRoute
   ProjectsScribbleUiRoute: typeof ProjectsScribbleUiRouteWithChildren
+  ProjectsSweepaRoute: typeof ProjectsSweepaRoute
   RSplatRoute: typeof RSplatRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
@@ -212,6 +238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects/sweepa': {
+      id: '/projects/sweepa'
+      path: '/projects/sweepa'
+      fullPath: '/projects/sweepa'
+      preLoaderRoute: typeof ProjectsSweepaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/projects/scribble-ui': {
       id: '/projects/scribble-ui'
       path: '/projects/scribble-ui'
@@ -224,6 +257,13 @@ declare module '@tanstack/react-router' {
       path: '/projects/scribble'
       fullPath: '/projects/scribble'
       preLoaderRoute: typeof ProjectsScribbleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/rust-terminal': {
+      id: '/projects/rust-terminal'
+      path: '/projects/rust-terminal'
+      fullPath: '/projects/rust-terminal'
+      preLoaderRoute: typeof ProjectsRustTerminalRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects/context-layer': {
@@ -293,8 +333,10 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   BlogSlugRoute: BlogSlugRoute,
   ProjectsContextLayerRoute: ProjectsContextLayerRoute,
+  ProjectsRustTerminalRoute: ProjectsRustTerminalRoute,
   ProjectsScribbleRoute: ProjectsScribbleRoute,
   ProjectsScribbleUiRoute: ProjectsScribbleUiRouteWithChildren,
+  ProjectsSweepaRoute: ProjectsSweepaRoute,
   RSplatRoute: RSplatRoute,
   BlogIndexRoute: BlogIndexRoute,
 }

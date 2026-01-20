@@ -37,15 +37,7 @@ function ScribbleUIPage() {
           rel="noopener noreferrer"
           className="px-3 py-1.5 border border-border hover:border-accent hover:text-accent transition-colors text-sm"
         >
-          GitHub
-        </a>
-        <a 
-          href="https://github.com/MitchForest/scribble-ui" 
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-3 py-1.5 border border-accent bg-accent/10 hover:bg-accent/20 text-accent transition-colors text-sm flex items-center gap-1.5"
-        >
-          <span>★</span> Star
+          GitHub →
         </a>
       </div>
 

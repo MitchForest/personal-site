@@ -74,7 +74,6 @@ function HomePage() {
                 tech={["React", "rough.js", "Tailwind"]}
                 status="open-source"
                 href="/projects/scribble-ui"
-                githubUrl="https://github.com/MitchForest/scribble-ui"
               />
               <ProjectCard 
                 name="context-layer" 
@@ -82,7 +81,20 @@ function HomePage() {
                 tech={["TypeScript", "LLM"]}
                 status="open-source"
                 href="/projects/context-layer"
-                githubUrl="https://github.com/MitchForest/context-layer"
+              />
+              <ProjectCard 
+                name="rust-terminal" 
+                description="GPU-accelerated terminal inspired by Zed"
+                tech={["Rust", "GPUI", "Metal"]}
+                status="open-source"
+                href="/projects/rust-terminal"
+              />
+              <ProjectCard 
+                name="sweepa" 
+                description="Dead-code detector for TypeScript"
+                tech={["TypeScript", "ts-morph", "Call Graphs"]}
+                status="open-source"
+                href="/projects/sweepa"
               />
             </div>
           }
@@ -120,14 +132,12 @@ function ProjectCard({
   tech,
   status,
   href,
-  githubUrl,
 }: { 
   name: string
   description: string
   tech: string[]
   status?: "stealth" | "open-source" | "wip"
   href?: string
-  githubUrl?: string
 }) {
   const Content = (
     <div className="p-3 border border-border hover:border-border-bright transition-colors h-full">
@@ -159,18 +169,6 @@ function ProjectCard({
           </span>
         ))}
       </div>
-      {githubUrl && (
-        <a
-          href={githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="inline-flex items-center gap-1.5 text-xs text-fg-muted hover:text-accent transition-colors mt-1"
-        >
-          <span>★</span>
-          <span>Star on GitHub</span>
-        </a>
-      )}
     </div>
   )
 
